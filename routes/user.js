@@ -16,7 +16,7 @@ userRouter.post('/signup',  function(req,res){
     )
     userRouter.get('/purchases',  function(req,res){
       res.json({
-        message:"signed up"
+        message:"signed"
       })
     }
     )
