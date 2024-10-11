@@ -16,7 +16,7 @@ app.use('/api/v1/course',courseRouter);
 async  function main() {
 await mongoose.connect("mongodb+srv://sandeepgsgggg:sandeep007@cluster0.flofr.mongodb.net/coursera-app");
 app.listen(3000);
-console.log("connected to")
+console.log("connected ")
 }
 
 main();

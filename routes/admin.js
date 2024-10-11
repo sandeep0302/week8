@@ -12,7 +12,7 @@ adminRouter.post('/signin',function(req,res){
         message: 'admin signed in'
     })
 })
-adminRouter.post('/course',function(req,res){
+adminRouter.post('/',function(req,res){
     res.json({
         message: 'admin signed in'
     })
