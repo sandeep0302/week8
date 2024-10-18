@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-console.log(process.env.MONGODB_URL)
 
 
 const {userRouter} = require('./routes/user')

@@ -10,7 +10,8 @@ const saltRounds = 5;
 
 const adminRouter = Router();
 
-const {adminModel,courseModel} = require('../db')
+const {adminModel,courseModel} = require('../db');
+const course = require('./course');
 
 
 
@@ -63,14 +64,34 @@ adminRouter.post('/course',adminMiddleware,async function(req,res){
         creatorId:course._id
     })
 })
-adminRouter.put('/course',function(req,res){
-    res.json({
-        message: 'admin signed in'
-    })
+adminRouter.put('/course',adminMiddleware, async function(req,res){
+  const  adminId = req.userId;
+  const {title,description,imageUrl,price,courseId}=req.body;
+
+  const course = await courseModel.updateOne({
+    _id:courseId,
+    creatorId:adminId
+  },{
+   title:title,
+   description:description,
+   imageUrl:imageUrl,
+   price:price
+  })
+res.json({
+   message: 'course updated',
+   creatorId:course._id
 })
-adminRouter.get('/course/bulk',function(req,res){
-    res.json({
-        message: 'admin signed in'
+})
+adminRouter.get('/course/bulk',adminMiddleware,async function(req,res){
+  const adminId = req.userId;
+  
+  const courses = await courseModel.find({
+    creatorId:adminId
+  });
+  
+  res.json({
+        message: 'course updated',
+        courses
     })
 })
 module.exports ={
