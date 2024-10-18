@@ -4,23 +4,14 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
 const userSchema = new Schema({
-    _id:ObjectId,
-    username:{type:String,
-        unique:true},
     email :{type:String,
         unique:true},
     password :String,
     firstName:String,
-    lastName:String
+    lastName:String 
 
 });
 const adminSchema = new Schema({
-    _id:ObjectId,
-    username: {
-        type:String,
-        required:true,
-        unique:true
-    },
     email : {
         type:String,
         required:true,
@@ -29,11 +20,12 @@ const adminSchema = new Schema({
     password :{
         type:String,
         unique:true
-    }
+    },
+    firstName:String,
+    lastName:String
 
 });
 const courseSchema = new Schema({
-    _id:ObjectId,
     title:String,
     description:String,
     price:Number,
@@ -42,7 +34,6 @@ const courseSchema = new Schema({
 
 });
 const purchaseSchema = new Schema({
-    _id:ObjectId,
     courseId:ObjectId,
     userId:ObjectId
 });
@@ -56,7 +47,7 @@ const courseModel = mongoose.model('course',courseSchema);
 
 const purchaseModel = mongoose.model('purchase',purchaseSchema);
 
-module.export = {
+module.exports = {
     userModel,
     adminModel,
     courseModel,

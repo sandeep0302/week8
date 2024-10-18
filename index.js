@@ -1,30 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require ('dotenv').config();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+console.log(process.env.MONGODB_URL)
 
-const MongoClient = require('mongodb').MongoClient;
-const mongoUri = process.env.MONGODB_URI;
 
 const {userRouter} = require('./routes/user')
 const {courseRouter} = require('./routes/course')
 const {adminRouter} = require('./routes/admin')
 
-// const jwt = require('jsonwebtoken')
-
 const app = express();
+
+app.use(express.json());
 
 app.use('/api/v1/user',userRouter);
 app.use('/api/v1/admin',adminRouter);
 app.use('/api/v1/course',courseRouter);
 
-const connectToDb = async () => {
+async function connectToDb(){
     try {
-        const client = await MongoClient.connect(mongoUri);
-        const db = client.db('coursera-app');
+     await mongoose.connect(process.env.MONGODB_URL);
+        
         app.listen(3000);
         console.log('Connected to MongoDB');
     } catch (error) {
-        console.error('Error connecting to MongoDB:',err);
+        console.error('Error connecting to MongoDB:',error);
     }
 }
 
