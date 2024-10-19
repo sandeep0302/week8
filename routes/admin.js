@@ -1,19 +1,11 @@
 const {Router} = require('express');
-const { z }  = require ("zod");
-const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const {JWT_ADMIN_PASSWORD} = require('../config');
 const {adminMiddleware} = require('../middlewares/admin');
 
-
-const saltRounds = 5;
-
 const adminRouter = Router();
 
 const {adminModel,courseModel} = require('../db');
-const course = require('./course');
-
-
 
 adminRouter.post('/signup', async function(req,res){
     const {email,password,firstName,lastName} = req.body;
@@ -36,7 +28,7 @@ adminRouter.post('/signin', async function(req,res){
     });
     if (admin) {
       const token = jwt.sign({
-        id:user._id
+        id:admin._id
       },JWT_ADMIN_PASSWORD);
 
       res.json({
@@ -85,7 +77,7 @@ res.json({
 adminRouter.get('/course/bulk',adminMiddleware,async function(req,res){
   const adminId = req.userId;
   
-  const courses = await courseModel.find({
+  const courses = await courseModel.findOne({
     creatorId:adminId
   });
   

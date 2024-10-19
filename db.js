@@ -14,13 +14,9 @@ const userSchema = new Schema({
 const adminSchema = new Schema({
     email : {
         type:String,
-        required:true,
         unique:true
     },
-    password :{
-        type:String,
-        unique:true
-    },
+    password :String,
     firstName:String,
     lastName:String
 
